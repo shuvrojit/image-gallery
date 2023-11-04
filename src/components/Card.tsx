@@ -1,63 +1,58 @@
-import { useState } from "react"
-import styled from "styled-components"
+import { useState } from "react";
+import styled from "styled-components";
 
 const CardStyle = styled.div`
-display: flex;
-width: 168px;
-height: 128px;
-padding: 16px;
-justify-content: flex-end;
-align-items: flex-start;
-gap: 8px;
-flex-shrink: 0;
-border: 1px solid #000;
-background: #D9D9D9;
-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-&:hover {
-background: rgba(0, 0, 0, 0.50);
-}
-`
+  display: flex;
+  width: 168px;
+  height: 128px;
+  padding: 16px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 8px;
+  flex-shrink: 0;
+  border: 1px solid #000;
+  background: #d9d9d9;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  &:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+`;
 
 const Checkbox = styled.div`
-width: 24px;
-height: 24px;
-flex-shrink: 0;
-background: #FFF;
-cursor: pointer;
-`
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background: #fff;
+  cursor: pointer;
+`;
 
 const BlueMark = styled.div`
-width: 18px;
-height: 18px;
-margin: 3px;
-background: blue;
-`
+  width: 18px;
+  height: 18px;
+  margin: 3px;
+  background: blue;
+`;
 
-
-const Card = ({items,setItems}) => {
-  const [mark, setMark] = useState(false)
-
+const Card = ({ items, setItems }) => {
+  const [mark, setMark] = useState(false);
 
   const markItem = () => {
-    if(!mark) {
+    if (!mark) {
       setItems(items + 1);
-      setMark(true)
+      setMark(true);
     } else {
-      setItems(items - 1)
-      setMark(false)
+      setItems(items - 1);
+      setMark(false);
     }
-  }
+  };
 
   return (
     <>
       <CardStyle>
-        <Checkbox onClick={markItem}>
-          {mark ? <BlueMark /> : "" }
-        </Checkbox>
-        </CardStyle>
+        <Checkbox onClick={markItem}>{mark ? <BlueMark /> : ""}</Checkbox>
+      </CardStyle>
     </>
+  );
+};
 
-  )
-}
-
-export default Card
+export default Card;

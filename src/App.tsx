@@ -1,9 +1,8 @@
-
-import { useState } from "react"
-import Card from "./components/Card"
+import { useState } from "react";
+import Card from "./components/Card";
 
 function App() {
-  const [items, setItems] = useState(0)
+  const [items, setItems] = useState(0);
 
   return (
     <>
@@ -12,7 +11,7 @@ function App() {
 
       <Card items={items} setItems={setItems} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
