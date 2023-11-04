@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { Draggable } from "react-beautiful-dnd";
 
 const CardStyle = styled.div<{ $src: string }>`
   width: 150px;
@@ -43,11 +44,11 @@ const Image = styled.img`
 `;
 
 const MarkedImage = styled(Image)`
-// margin: 8px;
-width: 136px;
-height: 136px;
-border: 8px solid blue;
-`
+  // margin: 8px;
+  width: 136px;
+  height: 136px;
+  border: 8px solid blue;
+`;
 
 const BlueMark = styled.div`
   width: 18px;
@@ -63,7 +64,7 @@ type cardProps = {
   src: string;
 };
 
-const Card = ({ items, setItems, name, src }: cardProps) => {
+const Card = ({ i, id, items, setItems, name, src }: cardProps) => {
   const [mark, setMark] = useState<Boolean>(false);
 
   const markItem = () => {
@@ -77,15 +78,25 @@ const Card = ({ items, setItems, name, src }: cardProps) => {
   };
 
   return (
-    <CardStyle $src={src}>
-      <DarkLayer>
-      <Checkbox onClick={markItem}>{mark ? <BlueMark /> : ""}</Checkbox>
-        </DarkLayer>
-      {
-        mark ? <MarkedImage src={src} alt={name} /> :
-      <Image src={src} alt={name} />
-      }
-    </CardStyle>
+    <Draggable key={id} draggableId={id} index={i}>
+      {(provided) => (
+        <CardStyle
+          $src={src}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <DarkLayer>
+            <Checkbox onClick={markItem}>{mark ? <BlueMark /> : ""}</Checkbox>
+          </DarkLayer>
+          {mark ? (
+            <MarkedImage src={src} alt={name} />
+          ) : (
+            <Image src={src} alt={name} />
+          )}
+        </CardStyle>
+      )}
+    </Draggable>
   );
 };
 

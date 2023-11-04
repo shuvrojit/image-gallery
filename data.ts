@@ -62,16 +62,6 @@ const data: DataTypes[] = [
     src: "/images/image-11.jpeg",
     id: uuid(),
   },
-  {
-    name: "image-1",
-    src: "/images/image-1.webp",
-    id: uuid(),
-  },
-  {
-    name: "image-1",
-    src: "/images/image-1.webp",
-    id: uuid(),
-  },
 ]
 
 export default data
