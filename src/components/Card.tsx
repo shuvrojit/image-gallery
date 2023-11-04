@@ -2,36 +2,52 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const CardStyle = styled.div<{ $src: string }>`
-  display: flex;
-  width: 168px;
-  height: 128px;
-  padding: 16px;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 8px;
-  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
   border: 1px solid #000;
   background-image: "${(props) => props.$src}";
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  &:hover {
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 99;
-  }
+  position: relative;
 `;
 
 const Checkbox = styled.div`
+  position: absolute;
   width: 24px;
   height: 24px;
   flex-shrink: 0;
   background: #fff;
   cursor: pointer;
+  right: 8px;
+  top: 8px;
+  z-index: 100;
+  opacity: 1;
+`;
+
+const DarkLayer = styled.div`
+  background: black;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  &:hover {
+    opacity: 0.3;
+  }
+}
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 100%;
+  position: relative;
+  width: 150px;
+  height: 150px;
   z-index: -1;
 `;
+
+const MarkedImage = styled(Image)`
+// margin: 8px;
+width: 136px;
+height: 136px;
+border: 8px solid blue;
+`
 
 const BlueMark = styled.div`
   width: 18px;
@@ -40,8 +56,15 @@ const BlueMark = styled.div`
   background: blue;
 `;
 
-const Card = ({ items, setItems, name, src }) => {
-  const [mark, setMark] = useState(false);
+type cardProps = {
+  items: number;
+  setItems: (items: number) => void;
+  name: string;
+  src: string;
+};
+
+const Card = ({ items, setItems, name, src }: cardProps) => {
+  const [mark, setMark] = useState<Boolean>(false);
 
   const markItem = () => {
     if (!mark) {
@@ -54,12 +77,15 @@ const Card = ({ items, setItems, name, src }) => {
   };
 
   return (
-    <>
-      <CardStyle $src={src}>
-        <Image src={src} alt={name} />
-        <Checkbox onClick={markItem}>{mark ? <BlueMark /> : ""}</Checkbox>
-      </CardStyle>
-    </>
+    <CardStyle $src={src}>
+      <DarkLayer>
+      <Checkbox onClick={markItem}>{mark ? <BlueMark /> : ""}</Checkbox>
+        </DarkLayer>
+      {
+        mark ? <MarkedImage src={src} alt={name} /> :
+      <Image src={src} alt={name} />
+      }
+    </CardStyle>
   );
 };
 

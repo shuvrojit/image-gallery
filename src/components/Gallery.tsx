@@ -10,7 +10,7 @@ const GalleryGrid = styled.div`
 `;
 
 const Gallery = () => {
-  const [items, setItems] = useState(0);
+  const [items, setItems] = useState<number>(0);
 
   return (
     <>
@@ -18,6 +18,7 @@ const Gallery = () => {
       <GalleryGrid>
         {data.map((d) => (
           <Card
+            // draggable={true}
             items={items}
             setItems={setItems}
             key={d.id}
