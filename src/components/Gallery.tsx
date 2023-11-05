@@ -28,18 +28,18 @@ const MenuBar = styled.div`
   height: 64px;
   padding: 1rem;
   border: 2px solid black;
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-img {
-cursor: pointer;
-display: none;
-}
-@media (min-width: 600px) {
-img {
-display: block;
-}
-}
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  img {
+    cursor: pointer;
+    display: none;
+  }
+  @media (min-width: 600px) {
+    img {
+      display: block;
+    }
+  }
 `;
 
 const MenuContainer = styled.div`
@@ -92,22 +92,22 @@ const Gallery = () => {
 
   return (
     <>
-        {items === 0 ? (
-      <MenuBar>
+      {items === 0 ? (
+        <MenuBar>
           <h2>Gallery</h2>
-            <img src={Upload} alt="upload" />
-      </MenuBar>
-        ) : (
-          <MenuContainer>
-            {" "}
-            <p style={{ fontSize: "1.3rem" }}>{items} items selected</p>{" "}
-            <img
-              style={{ width: "28px", height: "28px", cursor: "pointer" }}
-              src={Trash}
-              alt="trash"
-            />
-          </MenuContainer>
-        )}
+          <img src={Upload} alt="upload" />
+        </MenuBar>
+      ) : (
+        <MenuContainer>
+          {" "}
+          <p style={{ fontSize: "1.3rem" }}>{items} items selected</p>{" "}
+          <img
+            style={{ width: "28px", height: "28px", cursor: "pointer" }}
+            src={Trash}
+            alt="trash"
+          />
+        </MenuContainer>
+      )}
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (

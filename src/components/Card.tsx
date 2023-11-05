@@ -60,16 +60,16 @@ const DarkLayer = styled.div`
 
 const Image = styled.img`
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   z-index: -1;
 `;
 
 const MarkedImage = styled(Image)`
   // margin: 8px;
-  width: 136px;
-  height: 136px;
-  border: 8px solid blue;
+  width: 100%;
+  height: 100%;
+  border: 1rem solid blue;
 `;
 
 const BlueMark = styled.div`
