@@ -1,16 +1,70 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
+import { dataProps } from "./Gallery";
 
-const CardStyle = styled.div<{ $src: string }>`
+type cardProps = dataProps & {
+  setItems: (items: number) => void;
+  index: number;
+  selectedItems: dataProps[];
+  setSelectedItems: (items: string[]) => void;
+  updateSelectedItems: (id: string) => void;
+};
+
+const Card = ({
+  index,
+  id,
+  name,
+  src,
+  selectedItems,
+  setSelectedItems,
+  updateSelectedItems,
+}: cardProps) => {
+  const pushToSelectedItems = (): void => {
+    if (selectedItems.includes(id)) {
+      const newItems: string[] = selectedItems.filter((item) => item !== id);
+      setSelectedItems(newItems);
+    } else {
+      updateSelectedItems(id);
+    }
+  };
+
+  return (
+    <Draggable key={id} draggableId={id} index={index}>
+      {(provided) => (
+        <CardStyle
+          className="card"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <DarkLayer>
+            <Checkbox onClick={pushToSelectedItems}>
+              {selectedItems.includes(id) ? <BlueMark /> : ""}
+            </Checkbox>
+          </DarkLayer>
+
+          {selectedItems.includes(id) ? (
+            <MarkedImage src={src} alt={name} />
+          ) : (
+            <Image src={src} alt={name} />
+          )}
+        </CardStyle>
+      )}
+    </Draggable>
+  );
+};
+
+export default Card;
+
+const CardStyle = styled.div`
   width: 150px;
   max-width: 100%;
   height: 150px;
   border: 1px solid #000;
-  background-image: "${(props) => props.$src}";
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   position: relative;
   margin: 8px auto;
+
   &:first-child {
     width: 100%;
     height: 95%;
@@ -18,9 +72,11 @@ const CardStyle = styled.div<{ $src: string }>`
     grid-column: span 2;
     grid-row: span 2;
   }
+
   @media (min-width: 700px) {
     width: 180px;
     height: 180px;
+
     &:first-child {
       width: 92%;
       height: 96%;
@@ -52,6 +108,7 @@ const DarkLayer = styled.div`
   height: 100%;
   width: 100%;
   opacity: 0;
+
   &:hover {
     opacity: 0.3;
   }
@@ -78,72 +135,3 @@ const BlueMark = styled.div`
   margin: 3px;
   background: blue;
 `;
-
-type cardProps = {
-  items: number;
-  setItems: (items: number) => void;
-  name: string;
-  src: string;
-};
-
-const Card = ({
-  i,
-  id,
-  items,
-  setItems,
-  name,
-  src,
-  selectedItems,
-  setSelectedItems,
-  pushToSelected,
-}: cardProps) => {
-  const [mark, setMark] = useState<Boolean>(false);
-  const markItem = () => {
-    if (!mark) {
-      setItems(items + 1);
-      setMark(true);
-    } else {
-      setItems(items - 1);
-      setMark(false);
-    }
-  };
-
-  console.log(mark);
-
-  const pushToSelectedItems = () => {
-    markItem();
-    if (selectedItems.includes(id)) {
-      const index = selectedItems.indexOf(id);
-      selectedItems.splice(index, 1);
-    } else {
-      pushToSelected(id);
-    }
-  };
-
-  return (
-    <Draggable key={id} draggableId={id} index={i}>
-      {(provided) => (
-        <CardStyle
-          className="card"
-          $src={src}
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <DarkLayer>
-            <Checkbox onClick={pushToSelectedItems}>
-              {selectedItems.includes(id) ? <BlueMark /> : ""}
-            </Checkbox>
-          </DarkLayer>
-          {selectedItems.includes(id) ? (
-            <MarkedImage src={src} alt={name} />
-          ) : (
-            <Image src={src} alt={name} />
-          )}
-        </CardStyle>
-      )}
-    </Draggable>
-  );
-};
-
-export default Card;
