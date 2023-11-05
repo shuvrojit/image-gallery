@@ -4,12 +4,20 @@ import { Draggable } from "react-beautiful-dnd";
 
 const CardStyle = styled.div<{ $src: string }>`
   width: 150px;
+  max-width: 100%;
   height: 150px;
   border: 1px solid #000;
   background-image: "${(props) => props.$src}";
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   position: relative;
-margin: 8px auto;
+  margin: 8px auto;
+  &:first-child {
+    width: 100%;
+    height: 95%;
+    // grid-column: 1/3;
+    grid-column: span 2;
+    grid-row: span 2;
+  }
 `;
 
 const Checkbox = styled.div`

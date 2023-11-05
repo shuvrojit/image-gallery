@@ -5,8 +5,9 @@
 
 }
 
-.card:first-child {
-    width: 320px;
-    height: 320px;
-    grid-column: 1/3;
+#root {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
 }
