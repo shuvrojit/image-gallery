@@ -66,6 +66,32 @@ const UploadButton = styled.div`
 const Gallery = () => {
   const [items, setItems] = useState<number>(0);
   const [data, setData] = useState(rawdata);
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  function pushToSelected(newItem) {
+    setSelectedItems([...selectedItems, newItem]);
+  }
+
+  function removeSelectedItems() {
+    const indx = [];
+    for (let i in selectedItems) {
+      // console.log(selectedItems[i])
+      for (let d in data) {
+        // console.log(data[d])
+        if (selectedItems[i] === data[d].id) {
+          indx.push(d);
+        }
+      }
+    }
+    const newData = data.filter((item) => !selectedItems.includes(item.id));
+    setData(newData);
+    // for (let i in indx) {
+    // setData(data.filter((item) => item.id !== [selectedItems]))
+    // }
+    setSelectedItems([]);
+  }
+
+  console.log(selectedItems);
 
   function onDragEnd(result) {
     const { destination, source, draggableId } = result;
@@ -90,9 +116,13 @@ const Gallery = () => {
     return;
   }
 
+  console.log(selectedItems);
+
+  // TODO: Implement delete feature for selected Images
+
   return (
     <>
-      {items === 0 ? (
+      {selectedItems.length === 0 ? (
         <MenuBar>
           <h2>Gallery</h2>
           <img src={Upload} alt="upload" />
@@ -100,8 +130,11 @@ const Gallery = () => {
       ) : (
         <MenuContainer>
           {" "}
-          <p style={{ fontSize: "1.3rem" }}>{items} items selected</p>{" "}
+          <p style={{ fontSize: "1.3rem" }}>
+            {selectedItems.length} items selected
+          </p>{" "}
           <img
+            onClick={removeSelectedItems}
             style={{ width: "28px", height: "28px", cursor: "pointer" }}
             src={Trash}
             alt="trash"
@@ -121,6 +154,9 @@ const Gallery = () => {
                   src={d.src}
                   i={i}
                   id={d.id}
+                  setSelectedItems={setSelectedItems}
+                  selectedItems={selectedItems}
+                  pushToSelected={pushToSelected}
                 />
               ))}
               {provided.placeholder}

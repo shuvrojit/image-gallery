@@ -86,9 +86,18 @@ type cardProps = {
   src: string;
 };
 
-const Card = ({ i, id, items, setItems, name, src }: cardProps) => {
+const Card = ({
+  i,
+  id,
+  items,
+  setItems,
+  name,
+  src,
+  selectedItems,
+  setSelectedItems,
+  pushToSelected,
+}: cardProps) => {
   const [mark, setMark] = useState<Boolean>(false);
-
   const markItem = () => {
     if (!mark) {
       setItems(items + 1);
@@ -96,6 +105,18 @@ const Card = ({ i, id, items, setItems, name, src }: cardProps) => {
     } else {
       setItems(items - 1);
       setMark(false);
+    }
+  };
+
+  console.log(mark);
+
+  const pushToSelectedItems = () => {
+    markItem();
+    if (selectedItems.includes(id)) {
+      const index = selectedItems.indexOf(id);
+      selectedItems.splice(index, 1);
+    } else {
+      pushToSelected(id);
     }
   };
 
@@ -110,9 +131,11 @@ const Card = ({ i, id, items, setItems, name, src }: cardProps) => {
           {...provided.dragHandleProps}
         >
           <DarkLayer>
-            <Checkbox onClick={markItem}>{mark ? <BlueMark /> : ""}</Checkbox>
+            <Checkbox onClick={pushToSelectedItems}>
+              {selectedItems.includes(id) ? <BlueMark /> : ""}
+            </Checkbox>
           </DarkLayer>
-          {mark ? (
+          {selectedItems.includes(id) ? (
             <MarkedImage src={src} alt={name} />
           ) : (
             <Image src={src} alt={name} />
