@@ -7,15 +7,20 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 const GalleryGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
 `;
+
+const MenuBar = styled.div`
+height: 64px;
+padding: 1rem;
+border: 2px solid black;
+`
+
 
 const Gallery = () => {
   const [items, setItems] = useState<number>(0);
   const [data, setData] = useState(rawdata);
 
   function onDragEnd(result) {
-    console.log(result);
     const { destination, source, draggableId } = result;
     // check to see if destination hav value
     if (!destination) {
@@ -40,7 +45,9 @@ const Gallery = () => {
 
   return (
     <>
-      <p>{items} items selected</p>
+      <MenuBar>
+        { items === 0 ? <h2>Gallery</h2> : <p>{items} items selected</p>}
+        </MenuBar>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (

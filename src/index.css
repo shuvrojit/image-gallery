@@ -1,0 +1,12 @@
+*, *::after, *::before {
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+
+}
+
+.card:first-child {
+    width: 320px;
+    height: 320px;
+    grid-column: 1/3;
+}

@@ -9,6 +9,7 @@ const CardStyle = styled.div<{ $src: string }>`
   background-image: "${(props) => props.$src}";
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   position: relative;
+margin: 8px auto;
 `;
 
 const Checkbox = styled.div`
@@ -81,6 +82,7 @@ const Card = ({ i, id, items, setItems, name, src }: cardProps) => {
     <Draggable key={id} draggableId={id} index={i}>
       {(provided) => (
         <CardStyle
+          className="card"
           $src={src}
           ref={provided.innerRef}
           {...provided.draggableProps}
