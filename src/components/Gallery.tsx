@@ -14,12 +14,13 @@ const GalleryGrid = styled.div`
   @media (min-width: 550px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 940px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-  @media (min-width: 1000px) {
+  @media (min-width: 1140px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
+  grid-gap: 8px;
 `;
 
 const MenuBar = styled.div`
@@ -33,6 +34,7 @@ const MenuContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 0 1.5rem;
 `;
 
 const UploadButton = styled.div`

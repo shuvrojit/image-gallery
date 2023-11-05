@@ -18,6 +18,19 @@ const CardStyle = styled.div<{ $src: string }>`
     grid-column: span 2;
     grid-row: span 2;
   }
+  @media (min-width: 700px) {
+    width: 180px;
+    height: 180px;
+    &:first-child {
+      width: 92%;
+      height: 96%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 const Checkbox = styled.div`
