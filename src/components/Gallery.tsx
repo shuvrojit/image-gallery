@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Trash from "../assets/trash.svg";
 import UploadSvg from "../assets/upload-rounded.svg";
+import Upload from "../assets/upload.svg";
 
 const GalleryGrid = styled.div`
   margin: 1rem auto;
@@ -27,14 +28,27 @@ const MenuBar = styled.div`
   height: 64px;
   padding: 1rem;
   border: 2px solid black;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+img {
+cursor: pointer;
+display: none;
+}
+@media (min-width: 600px) {
+img {
+display: block;
+}
+}
 `;
 
 const MenuContainer = styled.div`
+  border: 2px solid black;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
+  padding: 1rem 1.5rem;
 `;
 
 const UploadButton = styled.div`
@@ -78,9 +92,11 @@ const Gallery = () => {
 
   return (
     <>
-      <MenuBar>
         {items === 0 ? (
+      <MenuBar>
           <h2>Gallery</h2>
+            <img src={Upload} alt="upload" />
+      </MenuBar>
         ) : (
           <MenuContainer>
             {" "}
@@ -92,7 +108,6 @@ const Gallery = () => {
             />
           </MenuContainer>
         )}
-      </MenuBar>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
