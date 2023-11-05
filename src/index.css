@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-#gallery {
+.gallery {
   display: flex;
   justify-content: center;
   flex-direction: column;

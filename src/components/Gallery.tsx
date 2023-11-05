@@ -2,19 +2,19 @@ import { useState } from "react";
 import Card from "./Card";
 import rawData from "../../data";
 import styled from "styled-components";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import Trash from "../assets/trash.svg";
 import UploadSvg from "../assets/upload-rounded.svg";
 import Upload from "../assets/upload.svg";
 
-export type dataProps = {
+export interface DataInterface {
   id: string;
   name: string;
   src: string;
-};
+}
 
-const Gallery = () => {
-  const [data, setData] = useState<dataProps[]>(rawData);
+const Gallery = (): JSX.Element => {
+  const [data, setData] = useState<DataInterface[]>(rawData);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const updateSelectedItems = (newItem: string): void => {
@@ -22,17 +22,13 @@ const Gallery = () => {
   };
 
   const deleteSelectedItems = (): void => {
-    const newData: dataProps[] = data.filter(
-      (item) => !selectedItems.includes(item.id),
-    );
+    const newData = data.filter((item) => !selectedItems.includes(item.id));
     setData(newData);
     setSelectedItems([]);
   };
 
-  const onDragEnd = (result): void => {
-    console.log(result);
-
-    const { destination, source, draggableId } = result;
+  const onDragEnd = (result: DropResult): void => {
+    const { destination, source } = result;
     if (!destination) {
       return;
     }
@@ -46,14 +42,14 @@ const Gallery = () => {
     }
 
     // Take the item and place in the destination index
-    const newData: dataProps[] = Array.from(data);
+    const newData: DataInterface[] = Array.from(data);
     newData.splice(source.index, 1);
     newData.splice(destination.index, 0, data[source.index]);
     setData(newData);
   };
 
   return (
-    <>
+    <div className="gallery">
       {selectedItems.length === 0 ? (
         <MenuBar>
           <h2>Gallery</h2>
@@ -96,7 +92,7 @@ const Gallery = () => {
       <UploadButton>
         <img style={{ cursor: "pointer" }} src={UploadSvg} alt="upload" />
       </UploadButton>
-    </>
+    </div>
   );
 };
 

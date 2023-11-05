@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
-import { dataProps } from "./Gallery";
+import { DataInterface } from "./Gallery";
 
-type cardProps = dataProps & {
-  setItems: (items: number) => void;
+interface CardInterface extends DataInterface {
   index: number;
-  selectedItems: dataProps[];
+  selectedItems: string[];
   setSelectedItems: (items: string[]) => void;
   updateSelectedItems: (id: string) => void;
-};
+}
 
 const Card = ({
   index,
@@ -18,10 +17,10 @@ const Card = ({
   selectedItems,
   setSelectedItems,
   updateSelectedItems,
-}: cardProps) => {
+}: CardInterface): JSX.Element => {
   const pushToSelectedItems = (): void => {
     if (selectedItems.includes(id)) {
-      const newItems: string[] = selectedItems.filter((item) => item !== id);
+      const newItems = selectedItems.filter((item) => item !== id);
       setSelectedItems(newItems);
     } else {
       updateSelectedItems(id);
