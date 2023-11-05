@@ -1,67 +1,78 @@
-import { v4 as uuid } from "uuid"
+import { v4 as uuid } from "uuid";
+import image1 from "/images/image-1.webp";
+import image2 from "/images/image-2.webp";
+import image3 from "/images/image-3.webp";
+import image4 from "/images/image-4.webp";
+import image5 from "/images/image-5.webp";
+import image6 from "/images/image-6.webp";
+import image7 from "/images/image-7.webp";
+import image8 from "/images/image-8.webp";
+import image9 from "/images/image-9.webp";
+import image10 from "/images/image-10.jpeg";
+import image11 from "/images/image-11.jpeg";
 
 interface DataTypes {
-  name: string,
-  src: string,
-  id: string,
+  name: string;
+  src: string;
+  id: string;
 }
 
 const data: DataTypes[] = [
   {
     name: "image-1",
-    src: "/images/image-1.webp",
+    src: image1,
     id: uuid(),
   },
   {
     name: "image-2",
-    src: "/images/image-2.webp",
+    src: image2,
     id: uuid(),
   },
   {
     name: "image-3",
-    src: "/images/image-3.webp",
+    src: image3,
     id: uuid(),
   },
   {
     name: "image-4",
-    src: "/images/image-4.webp",
+    src: image4,
     id: uuid(),
   },
   {
     name: "image-5",
-    src: "/images/image-5.webp",
+    src: image5,
     id: uuid(),
   },
   {
     name: "image-6",
-    src: "/images/image-6.webp",
+    src: image6,
     id: uuid(),
   },
   {
     name: "image-7",
-    src: "/images/image-7.webp",
+    src: image7,
     id: uuid(),
   },
   {
     name: "image-8",
-    src: "/images/image-8.webp",
+    src: image8,
     id: uuid(),
   },
   {
     name: "image-9",
-    src: "/images/image-9.webp",
+    src: image9,
     id: uuid(),
   },
   {
     name: "image-10",
-    src: "/images/image-10.jpeg",
+    src: image10,
     id: uuid(),
   },
   {
     name: "image-11",
-    src: "/images/image-11.jpeg",
+    src: image11,
     id: uuid(),
   },
-]
+];
 
-export default data
+export default data;
