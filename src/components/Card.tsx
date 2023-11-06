@@ -29,8 +29,12 @@ const Card = ({
 
   return (
     <Droppable droppableId={id}>
-      {(provided) => (
-        <CardStyle ref={provided.innerRef} {...provided.droppableProps}>
+      {(provided, snapshot) => (
+        <CardStyle
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          $isDraggingOver={snapshot.isDraggingOver}
+        >
           <Draggable key={id} draggableId={id} index={index}>
             {(provided) => (
               <Box
@@ -65,11 +69,13 @@ const Card = ({
 
 export default Card;
 
-const CardStyle = styled.div`
+const CardStyle = styled.div<{ $isDraggingOver: boolean }>`
   width: 150px;
   max-width: 100%;
   height: 150px;
   margin: 8px auto;
+
+  background-color: ${(props) => (props.$isDraggingOver ? "#607D8B" : "none")};
 
   &:first-child {
     width: 100%;
