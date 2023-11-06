@@ -37,15 +37,18 @@ const Card = ({
           {...provided.dragHandleProps}
         >
           <DarkLayer>
-            <Checkbox onClick={pushToSelectedItems}>
-              {selectedItems.includes(id) ? <BlueMark /> : ""}
-            </Checkbox>
+            <Checkbox onClick={pushToSelectedItems}></Checkbox>
           </DarkLayer>
 
+          <Image src={src} alt={name} />
           {selectedItems.includes(id) ? (
-            <MarkedImage src={src} alt={name} />
+            <>
+              <Checkbox onClick={pushToSelectedItems}>
+                <BlueMark />
+              </Checkbox>
+            </>
           ) : (
-            <Image src={src} alt={name} />
+            ""
           )}
         </CardStyle>
       )}
@@ -121,16 +124,12 @@ const Image = styled.img`
   z-index: -1;
 `;
 
-const MarkedImage = styled(Image)`
-  // margin: 8px;
-  width: 100%;
-  height: 100%;
-  border: 1rem solid blue;
-`;
-
 const BlueMark = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
   width: 18px;
   height: 18px;
   margin: 3px;
-  background: blue;
+  background: #0288d1;
 `;

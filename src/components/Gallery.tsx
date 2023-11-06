@@ -48,6 +48,10 @@ const Gallery = (): JSX.Element => {
     setData(newData);
   };
 
+  // TODO: Make drag and drop smooth
+  // TODO: Accessablity
+  // TODO: Change look.
+
   return (
     <div className="gallery">
       {selectedItems.length === 0 ? (
@@ -121,7 +125,7 @@ const GalleryGrid = styled.div`
 const MenuBar = styled.div`
   height: 64px;
   padding: 1rem;
-  border: 2px solid black;
+  border-bottom: 2px solid black;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
