@@ -2,7 +2,7 @@ import { useState } from "react";
 import Card from "./Card";
 import rawData from "../../data";
 import styled from "styled-components";
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import Trash from "../assets/trash.svg";
 import UploadSvg from "../assets/upload-rounded.svg";
 import Upload from "../assets/upload.svg";
@@ -69,25 +69,20 @@ const Gallery = (): JSX.Element => {
         </MenuContainer>
       )}
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided) => (
-            <GalleryGrid ref={provided.innerRef} {...provided.droppableProps}>
-              {data.map((d, index) => (
-                <Card
-                  key={index}
-                  name={d.name}
-                  src={d.src}
-                  index={index}
-                  id={d.id}
-                  selectedItems={selectedItems}
-                  updateSelectedItems={updateSelectedItems}
-                  setSelectedItems={setSelectedItems}
-                />
-              ))}
-              {provided.placeholder}
-            </GalleryGrid>
-          )}
-        </Droppable>
+        <GalleryGrid>
+          {data.map((d, index) => (
+            <Card
+              key={index}
+              name={d.name}
+              src={d.src}
+              index={index}
+              id={d.id}
+              selectedItems={selectedItems}
+              updateSelectedItems={updateSelectedItems}
+              setSelectedItems={setSelectedItems}
+            />
+          ))}
+        </GalleryGrid>
       </DragDropContext>
       <UploadButton>
         <img style={{ cursor: "pointer" }} src={UploadSvg} alt="upload" />

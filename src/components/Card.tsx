@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import { DataInterface } from "./Gallery";
 
 interface CardInterface extends DataInterface {
@@ -28,31 +28,38 @@ const Card = ({
   };
 
   return (
-    <Draggable key={id} draggableId={id} index={index}>
+    <Droppable droppableId={id}>
       {(provided) => (
-        <CardStyle
-          className="card"
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <DarkLayer>
-            <Checkbox onClick={pushToSelectedItems}></Checkbox>
-          </DarkLayer>
+        <CardStyle ref={provided.innerRef} {...provided.droppableProps}>
+          <Draggable key={id} draggableId={id} index={index}>
+            {(provided) => (
+              <Box
+                className="card"
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+              >
+                <DarkLayer>
+                  <Checkbox onClick={pushToSelectedItems}></Checkbox>
+                </DarkLayer>
 
-          <Image src={src} alt={name} />
-          {selectedItems.includes(id) ? (
-            <>
-              <Checkbox onClick={pushToSelectedItems}>
-                <BlueMark />
-              </Checkbox>
-            </>
-          ) : (
-            ""
-          )}
+                <Image src={src} alt={name} />
+                {selectedItems.includes(id) ? (
+                  <>
+                    <Checkbox onClick={pushToSelectedItems}>
+                      <BlueMark />
+                    </Checkbox>
+                  </>
+                ) : (
+                  ""
+                )}
+              </Box>
+            )}
+          </Draggable>
+          {provided.placeholder}
         </CardStyle>
       )}
-    </Draggable>
+    </Droppable>
   );
 };
 
@@ -62,9 +69,6 @@ const CardStyle = styled.div`
   width: 150px;
   max-width: 100%;
   height: 150px;
-  border: 1px solid #000;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  position: relative;
   margin: 8px auto;
 
   &:first-child {
@@ -81,7 +85,7 @@ const CardStyle = styled.div`
 
     &:first-child {
       width: 92%;
-      height: 96%;
+      height: 95%;
     }
   }
 
@@ -89,6 +93,14 @@ const CardStyle = styled.div`
     width: 200px;
     height: 200px;
   }
+`;
+
+const Box = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
 `;
 
 const Checkbox = styled.div`
@@ -101,7 +113,6 @@ const Checkbox = styled.div`
   right: 8px;
   top: 8px;
   z-index: 100;
-  opacity: 1;
 `;
 
 const DarkLayer = styled.div`
@@ -110,6 +121,7 @@ const DarkLayer = styled.div`
   height: 100%;
   width: 100%;
   opacity: 0;
+transition: opacity 0.5s ease;
 
   &:hover {
     opacity: 0.3;
